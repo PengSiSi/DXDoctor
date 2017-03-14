@@ -36,6 +36,8 @@
 /// 主色调
 #define MAIN_COLOR ColorRGBA(118, 216, 206, 1)
 
+/// 主背景色调
+#define MAIN_BG_COLOR ColorRGBA(249, 249, 249, 1)
 
 
 #endif /* Macros_Color_h */

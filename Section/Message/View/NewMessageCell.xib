@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewMessageCellID" rowHeight="60" id="KGk-i7-Jjw" customClass="NewMessageCell">
+            <rect key="frame" x="0.0" y="0.0" width="324" height="58"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="324" height="57"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bell" translatesAutoresizingMaskIntoConstraints="NO" id="2o2-2u-2wA">
+                        <rect key="frame" x="8" y="8" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="Y6F-mr-b8C"/>
+                            <constraint firstAttribute="width" constant="30" id="nrj-dc-J7b"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="新消息" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="97X-Se-K6A">
+                        <rect key="frame" x="47" y="10" width="43" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="暂无消息" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W8s-cs-SLu">
+                        <rect key="frame" x="47" y="36.5" width="53.5" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.30793929973821987" green="0.30793929973821987" blue="0.30793929973821987" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow-right-new" translatesAutoresizingMaskIntoConstraints="NO" id="vof-hX-VRh">
+                        <rect key="frame" x="302" y="23" width="10" height="10"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="10" id="Qgd-yE-54G"/>
+                            <constraint firstAttribute="height" constant="10" id="tFv-QF-uUT"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="vof-hX-VRh" secondAttribute="trailing" constant="4" id="Kal-fY-VJJ"/>
+                    <constraint firstItem="2o2-2u-2wA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="PGy-50-ZPA"/>
+                    <constraint firstItem="97X-Se-K6A" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="PwK-xC-BJ2"/>
+                    <constraint firstAttribute="bottom" secondItem="W8s-cs-SLu" secondAttribute="bottom" constant="5" id="UIz-40-5U6"/>
+                    <constraint firstItem="W8s-cs-SLu" firstAttribute="leading" secondItem="97X-Se-K6A" secondAttribute="leading" id="aZR-9D-3ZE"/>
+                    <constraint firstItem="W8s-cs-SLu" firstAttribute="top" secondItem="97X-Se-K6A" secondAttribute="bottom" constant="9.5" id="agj-fV-QSk"/>
+                    <constraint firstItem="2o2-2u-2wA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="reC-MB-ycb"/>
+                    <constraint firstItem="97X-Se-K6A" firstAttribute="leading" secondItem="2o2-2u-2wA" secondAttribute="trailing" constant="9" id="s3M-4v-wXe"/>
+                    <constraint firstItem="vof-hX-VRh" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="zVb-2L-4zR"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="messageContentLabel" destination="W8s-cs-SLu" id="g7j-cB-3gn"/>
+                <outlet property="messageImgView" destination="2o2-2u-2wA" id="fKt-NJ-6AS"/>
+                <outlet property="messageTitleLabel" destination="97X-Se-K6A" id="kpE-JO-4tl"/>
+            </connections>
+            <point key="canvasLocation" x="36" y="61"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="arrow-right-new" width="21" height="39"/>
+        <image name="bell" width="64" height="64"/>
+    </resources>
+</document>
