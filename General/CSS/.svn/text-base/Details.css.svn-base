@@ -1,0 +1,59 @@
+.title {
+    text-align:center;
+    font-size:20px;
+    font-weight:bold;
+    color:black;
+    margin-left:10px;
+
+}
+
+.time {
+    text-align:center;
+    font-size:14px;
+    color:gray;
+    margin-top:3px;
+    margin-bottom:3px;
+    margin-left:10px;
+    
+}
+
+.readCount {
+    text-align:right;
+    font-size:15px;
+    color:gray;
+    margin-top:7px;
+    margin-bottom:7px;
+    margin-left:10px;
+    
+}
+
+.contentText {
+    text-align:left;
+    font-size:20px;
+/*    font-weight:bold;*/
+    color:black;
+    margin-left:0px;
+    
+}
+
+.hasRead{color:black;}   /* ##f00 红色*/
+
+.haventRead{color:#F18F0F;}    /* #0f0 绿色*/
+
+
+a:link {color:#F18F0F;}    /* 未被访问的链接 */
+
+.fileList{
+    text-align:left;
+    font-size:18px;
+    color:gray;
+    margin-top:7px;
+    margin-bottom:7px;
+    margin-left:10px;
+    
+}
+
+.img-parent {
+    text-align:center;
+    margin-bottom:10px;
+}

@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/jxhdmobile/!svn/ver/4635/branches/qfxx/qfxx_iOS_teacher/QianfengSchool/QianfengSchool/General/Categories
+END
+NSString+Extend.h
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/jxhdmobile/!svn/ver/4635/branches/qfxx/qfxx_iOS_teacher/QianfengSchool/QianfengSchool/General/Categories/NSString+Extend.h
+END
+NSArray+Log.h
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/jxhdmobile/!svn/ver/3878/branches/qfxx/qfxx_iOS_teacher/QianfengSchool/QianfengSchool/General/Categories/NSArray+Log.h
+END
+NSString+Extend.m
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/jxhdmobile/!svn/ver/4635/branches/qfxx/qfxx_iOS_teacher/QianfengSchool/QianfengSchool/General/Categories/NSString+Extend.m
+END
+NSArray+Log.m
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/jxhdmobile/!svn/ver/3878/branches/qfxx/qfxx_iOS_teacher/QianfengSchool/QianfengSchool/General/Categories/NSArray+Log.m
+END
+UIBarButtonItem+Base.h
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svn/jxhdmobile/!svn/ver/3878/branches/qfxx/qfxx_iOS_teacher/QianfengSchool/QianfengSchool/General/Categories/UIBarButtonItem+Base.h
+END
+UIColor+HexString.h
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svn/jxhdmobile/!svn/ver/4443/branches/qfxx/qfxx_iOS_teacher/QianfengSchool/QianfengSchool/General/Categories/UIColor+HexString.h
+END
+UIBarButtonItem+Base.m
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svn/jxhdmobile/!svn/ver/3878/branches/qfxx/qfxx_iOS_teacher/QianfengSchool/QianfengSchool/General/Categories/UIBarButtonItem+Base.m
+END
+UIColor+HexString.m
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svn/jxhdmobile/!svn/ver/4443/branches/qfxx/qfxx_iOS_teacher/QianfengSchool/QianfengSchool/General/Categories/UIColor+HexString.m
+END

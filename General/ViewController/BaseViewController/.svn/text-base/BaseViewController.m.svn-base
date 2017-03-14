@@ -1,0 +1,150 @@
+//
+//  BaseViewController.m
+//  Ssdfz
+//
+//  Created by 王楠 on 16/1/19.
+//  Copyright © 2016年 Combanc. All rights reserved.
+//
+
+#import "BaseViewController.h"
+#import <CommonCrypto/CommonDigest.h>
+#import "FTPManager.h"
+#import "NSString+Extend.h"
+#import "SelectPhotoViewController.h"
+#import "AFURLSessionManager.h"
+
+@interface BaseViewController ()<FTPManagerDelegate>
+{
+    NSString *_imageName;
+    NSArray *_fileArray;
+    NSString *_userName;
+    NSString *_uploadType;
+    NSString *_affixtype;
+    NSString *_classType;
+    NSString *_folderID;
+    NSString *_courseId;
+    NSString *_isShare;
+    NSInteger _uploadCount;
+    
+    NSArray *_fileName;
+    NSArray *_imageUserName;
+    
+    NSString *_fileSize;
+}
+@end
+@implementation BaseViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
+    _uploadCount = 0;
+    _fileSize = [[NSString alloc]init];
+    self.navigationController.interactivePopGestureRecognizer.delegate = (id<UIGestureRecognizerDelegate>)self;
+}
+
+#pragma mark - FTP上传图片
+- (void)FTPUploadFileWithPath:(NSString *)path
+                    fileArray:(NSArray *)fileArray
+                     fileName:(NSArray *)fileName
+                     username:(NSArray *)username
+                    uploadType:(NSString *)uploadType
+                     affixtype:(NSString *)affixtype
+                     classType:(NSString *)classType
+                      folderId:(NSString *)folderID
+                      courseId:(NSString *)courseId
+                       isShare:(NSString *)isShare{
+    
+    [SVProgressHUD show];
+    
+    _uploadType = uploadType;
+    _fileArray = fileArray;
+    _affixtype = affixtype;
+    _classType = classType;
+    _folderID = folderID;
+    _courseId = courseId;
+    _isShare = isShare;
+    
+    _fileName = fileName;
+    _imageUserName = username;
+    
+    FTPManager *ftpManager = [[FTPManager alloc] init];
+    ftpManager.delegate = self;
+    FMServer *server= [FMServer serverWithDestination:[NSString stringWithFormat:@"%@/%@",K_UPLOAD_URL,path] username:FTP_USERNAME password:FTP_PASSWORD];
+    
+    dispatch_queue_t queue =  dispatch_queue_create("cccccccccccccc", NULL);
+    // 将任务添加到队列中
+    dispatch_async(queue, ^{
+    
+        for (int i = 0; i < fileArray.count; i++) {
+            
+            _imageName = fileName[i];
+            _userName = username[i];
+            
+            UIImage *image = [UIImage imageWithData:fileArray[i]];
+            NSData *compressionImageData = [[SelectPhotoViewController sharedInstance] compressImage:image];
+            //每次上传一张
+            [ftpManager uploadFile:[NSURL URLWithString:[NSString saveImage:compressionImageData imageName:_userName]] toServer:server];
+        }
+    });
+}
+
+- (void)ftpManagerUploadProgressDidChange:(NSDictionary *)processInfo {
+    
+//    NSLog(@"processInfo-----%@", processInfo);
+    if ([processInfo[@"progress"] isEqual:[NSNumber numberWithInteger:1]]) {
+       
+        [NSString deleteTemSaveImageWithFilePath:_userName];
+        //上传成功后的代理
+        _imageName = [_fileName componentsJoinedByString:@","];
+        _userName = [_imageUserName componentsJoinedByString:@","];
+        
+        _imageName = [NSString stringWithFormat:@"%@,",_imageName];
+        _userName = [NSString stringWithFormat:@"%@,",_userName];
+        float fileSize = [processInfo[@"fileSize"] floatValue];
+        _fileSize = [_fileSize stringByAppendingFormat:@"%f,", fileSize/1024];//最终上传单位是kb
+        _uploadCount++;
+        
+        if (_uploadCount == _fileArray.count) {
+            
+            NSString *param = JXHD_FileUploadParameter(KUSERDEFAULT_OBJ4KEY(kToken), _imageName ,_userName, KUSERDEFAULT_OBJ4KEY(kUserName), K_VIRTUALCLASS_INFO.classModel.classId, _uploadType,_affixtype, _fileSize, _classType, _folderID, _courseId, _isShare);
+//            NSLog(@"param------%@", param);
+        
+        [HTTPTool soapWithMethod:JXHD_FILEUPLOAD param:param success:^(id json) {
+            NSLog(@"全部上传成功");
+            if (self.delegate && [self.delegate respondsToSelector:@selector(FTPUploadSucess)]) {
+                [self.delegate FTPUploadSucess];
+            }
+        } failure:^(NSError *error) {
+            [SVProgressHUD showErrorWithStatus:KREQUESTERROR];
+            NSLog(@"上传附件---%@",error);
+        }];
+        }
+    }
+}
+
+//#pragma mark - 获取图片名字
+//- (NSString *)getPhotoName {
+//    
+//    NSDate* dat = [NSDate dateWithTimeIntervalSinceNow:0];
+//    NSTimeInterval a=[dat timeIntervalSince1970] * 1000;  //  *1000 是精确到毫秒，不乘就是精确到秒
+//    NSString *timeString = [NSString stringWithFormat:@"%f", a]; //转为字符型
+//    NSString *phName = [self md5:timeString];
+//    phName = [NSString stringWithFormat:@"%@.png",phName];
+//    return phName;
+//}
+//
+//-(NSString *) md5: (NSString *) inPutText {
+//    
+//    const char *cStr = [inPutText UTF8String];
+//    unsigned char result[CC_MD5_DIGEST_LENGTH];
+//    CC_MD5(cStr, strlen(cStr), result);
+//    
+//    return [[NSString stringWithFormat:@"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
+//             result[0], result[1], result[2], result[3],
+//             result[4], result[5], result[6], result[7],
+//             result[8], result[9], result[10], result[11],
+//             result[12], result[13], result[14], result[15]
+//             ] lowercaseString];
+//}
+
+@end

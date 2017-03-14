@@ -1,0 +1,207 @@
+//
+//  NetTool.m
+//  baiduMap
+//
+//  Created by Mike on 16/4/6.
+//  Copyright © 2016年 Mike. All rights reserved.
+//
+
+#import "HTTPTool.h"
+#import "NSString+ExtentedHandler.h"
+#import "AppDelegate.h"
+#import "LoginViewController.h"
+
+#define setHeaders \
+if (headers) { \
+    for (id headerField in headers.allKeys) { \
+        id headerValue = headers[headerField]; \
+        NSAssert([headerField isKindOfClass:[NSString class]] && [headerValue isKindOfClass:[NSString class]], @"Error, class of key/value in headerFieldValueDictionary must be NSString."); \
+        [manager.requestSerializer setValue:headerValue forHTTPHeaderField:headerField]; \
+    } \
+}
+
+#define combineSuccessAndFailure \
+^(id responseObject, NSError *error) { \
+    if (error) { \
+        if (failure) { \
+            failure(error); \
+        } \
+    } else { \
+        if (success) { \
+            success(responseObject); \
+        } \
+    } \
+}
+
+typedef void (^CompletionBlockType)(id responseObject, NSError *error);
+
+@implementation HTTPTool
+
++ (NSURLSessionDataTask *)GET:(NSString *)URLString headers:(NSDictionary *)headers parameters:(id)parameters success:(void (^)(NSURLSessionDataTask *, id))success failure:(void (^)(NSURLSessionDataTask *, NSError *))failure {
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    setHeaders
+    NSURLSessionDataTask *dataTask = [manager GET:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if (success) {
+            if ([self isTokenInvalidAndHandleWithResponseObject:responseObject]) return;
+            success(task, responseObject);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (failure) {
+            failure(task, error);
+        }
+    }];
+    return dataTask;
+}
+
++ (NSURLSessionDataTask *)POST:(NSString *)URLString headers:(NSDictionary *)headers parameters:(NSDictionary *)parameters success:(void (^)(NSURLSessionDataTask *, id))success failure:(void (^)(NSURLSessionDataTask *, NSError *))failure {
+    // 不输表情
+    BOOL containsEmoji = NO;
+    for (id value in parameters.allValues) {
+        if ([value isKindOfClass:[NSString class]] && [value containsEmoji]) {
+            containsEmoji = YES;
+            break;
+        }
+    }
+    if (containsEmoji) {
+        [SVProgressHUD showErrorWithStatus:@"暂时不支持输入表情"];
+        return nil;
+    }
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    setHeaders
+    NSURLSessionDataTask *dataTask = [manager POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if (success) {
+            if ([self isTokenInvalidAndHandleWithResponseObject:responseObject]) return;
+            success(task, responseObject);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (failure) {
+            failure(task, error);
+        }
+    }];
+    return dataTask;
+}
+
+#pragma mark - 上传
+
++ (NSURLSessionUploadTask *)uploadFileNoFormWithURLString:(NSString *)urlString fromFile:(NSURL *)fileURL orFromData:(NSData *)bodyData progress:(void (^)(NSProgress *uploadProgress))progress success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure {
+    
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] init];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    request.HTTPMethod = @"POST";
+    
+    CompletionBlockType completionBlock = combineSuccessAndFailure;
+    NSAssert(fileURL || bodyData, @"these two parameters mustn't all be nil");
+    NSURLSessionUploadTask *uploadTask = nil;
+    if (fileURL) {
+        uploadTask = [manager uploadTaskWithRequest:request fromFile:fileURL progress:progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+            completionBlock(responseObject, error);
+        }];
+        [uploadTask resume];
+        return uploadTask;
+    }
+    if (bodyData) {
+        uploadTask = [manager uploadTaskWithRequest:request fromData:bodyData progress:progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+            completionBlock(responseObject, error);
+        }];
+        [uploadTask resume];
+    }
+    return uploadTask;
+}
+
++ (NSURLSessionUploadTask *)uploadFileWithURLString:(NSString *)urlString queryParameter:(id)parameters formConstructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))block progress:(nullable void (^)(NSProgress * _Nonnull))progress success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure {
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    if (parameters) {
+        NSString *queryString = AFQueryStringFromParameters(parameters);
+        urlString = [urlString stringByAppendingFormat:@"?%@", queryString];
+    }
+    
+    NSURLSessionUploadTask *uploadTask = (NSURLSessionUploadTask *)[manager POST:urlString parameters:nil constructingBodyWithBlock:block progress:progress success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if (success) {
+            success(responseObject);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
+    return uploadTask;
+}
+
++ (NSURLSessionUploadTask *)uploadFileUseFormWithURLString:(NSString *)urlString parameter:(id)parameter constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))block progress:(nullable void (^)(NSProgress * _Nonnull))progress success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure {
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    NSURLSessionUploadTask *uploadTask = (NSURLSessionUploadTask *)[manager POST:urlString parameters:parameter constructingBodyWithBlock:block progress:progress success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if (success) {
+            success(responseObject);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
+    return uploadTask;
+}
+
++ (NSURLSessionUploadTask *)uploadFileUseFormWithStreamedRequest:(NSURLRequest *)urlRequest progress:(nullable void (^)(NSProgress * _Nonnull))progress success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure {
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    NSURLSessionUploadTask *uploadTask = [manager uploadTaskWithStreamedRequest:urlRequest progress:progress completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        combineSuccessAndFailure(responseObject, error);
+    }];
+    [uploadTask resume];
+    return uploadTask;
+}
+
+#pragma mark - 下载
+
++ (NSURLSessionDownloadTask *)downloadWithURLString:(NSString *)URLString progress:(nullable void (^)(NSProgress * _Nonnull))progress destination:(NSURL * (^)(NSURL *targetPath, NSURLResponse *response))destination success:(void(^)(id responseObject, NSURL *filePath))success failure:(void(^)(NSError *error))failure {
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:URLString]];
+    NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:progress destination:destination completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
+        if (error) {
+            failure(error);
+            return ;
+        }
+        success(response, filePath);
+        return;
+    }];
+    return downloadTask;
+}
+
+// 不使用downloadTask
++ (NSURLSessionDataTask *)GET:(NSString *)URLString progress:(nullable void (^)(NSProgress * _Nonnull))progress success:(void (^)(NSURLSessionDataTask *dataTask, id responseObject))success failure:(void (^)(NSURLSessionDataTask *, NSError *))failure {
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    NSURLSessionDataTask *dataTask = [manager GET:URLString parameters:nil progress:progress success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if (success) {
+            success(task, responseObject);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (failure) {
+            failure(task, error);
+        }
+    }];
+    return dataTask;
+}
+
+#pragma mark - other functions
+
++ (BOOL)isTokenInvalidAndHandleWithResponseObject:(id)responseObject {
+    if (responseObject && [responseObject[@"code"] isEqualToString:@"003"]) {
+        NSTimeInterval duration = 0.8;
+        [SVProgressHUD showErrorWithStatus:@"登录状态过期，请重新登录" duration:duration];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+            LoginViewController *loginVC = [LoginViewController loginViewController];
+            appDelegate.window.rootViewController = loginVC;
+            [appDelegate.window makeKeyAndVisible];
+        });
+        return YES;
+    }
+    return NO;
+}
+
+@end

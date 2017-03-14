@@ -1,0 +1,54 @@
+//
+//  BaseViewController.h
+//  Ssdfz
+//
+//  Created by 王楠 on 16/1/19.
+//  Copyright © 2016年 Combanc. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@protocol FTPUploadDelegate <NSObject>
+
+- (void)FTPUploadSucess;
+
+@end
+
+@interface BaseViewController : UIViewController
+
+@property (nonatomic, weak) id<FTPUploadDelegate> delegate;/**<代理方法 */
+
+///**
+// *  时间戳命名图片
+// *
+// *  @return 时间戳
+// */
+//- (NSString *)getPhotoName;
+
+/**
+ *  FTP上传图片资源附件等
+ *
+ *  @param path       FTP的路径 upload photo等
+ *  @param fileArray  上传的文件数组
+ *  @param fileName   文件名（文件原名）
+ *  @param username   使用名称（重命名）
+ *  @param uploadType 上传类型(1照片 2资源 3附件 4动态图片5头像 7分享)
+ *  @param affixtype  附件类型(1通知 2作业)如果上传类型为附件类型，此参数不能为空
+ *  @param classType  班级类型1行政班级 2虚拟班级
+ *  @param folderID   当前资源文件夹id. 上传资源必须传此字段，传其他类型可不用
+ *  @param courseId   课程id
+ *  @param isShare    是否分享0不分享1分享 学生传0 上传资源必须传此字段，传其他类型可不用
+ */
+- (void)FTPUploadFileWithPath:(NSString *)path
+                    fileArray:(NSArray *)fileArray
+                     fileName:(NSArray *)fileName
+                     username:(NSArray *)username
+                   uploadType:(NSString *)uploadType
+                    affixtype:(NSString *)affixtype
+                    classType:(NSString *)classType
+                     folderId:(NSString *)folderID
+                     courseId:(NSString *)courseId
+                      isShare:(NSString *)isShare;
+
+
+@end

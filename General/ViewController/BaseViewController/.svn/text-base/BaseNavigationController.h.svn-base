@@ -1,0 +1,14 @@
+//
+//  BaseNavigationController.h
+//  Ssdfz
+//
+//  Created by 王楠 on 16/1/20.
+//  Copyright © 2016年 Combanc. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface BaseNavigationController : UINavigationController
+
+
+@end
