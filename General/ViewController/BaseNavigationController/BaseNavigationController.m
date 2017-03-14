@@ -22,15 +22,15 @@
     UINavigationBar *navBarAppearance = [UINavigationBar appearanceWhenContainedIn:self, nil];
 #pragma clang diagnostic pop
     [navBarAppearance setShadowImage:[[UIImage alloc] init]];
-    [navBarAppearance setBarTintColor:MAIN_COLOR];
+    [navBarAppearance setBarTintColor:[UIColor whiteColor]];
     if (IOS8_OR_LATER) {
         navBarAppearance.translucent = NO;
     }
     NSDictionary *attrs = @{
                             NSFontAttributeName : [UIFont systemFontOfSize:18],
-                            NSForegroundColorAttributeName : [UIColor whiteColor]};
+                            NSForegroundColorAttributeName : [UIColor blackColor]};
     navBarAppearance.titleTextAttributes = attrs;
-    navBarAppearance.tintColor = [UIColor whiteColor];
+    navBarAppearance.tintColor = MAIN_COLOR;
     
 }
 
@@ -43,9 +43,10 @@
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
     if (self.viewControllers.count) {
         viewController.hidesBottomBarWhenPushed = YES;
-        // 添加默认的返回按钮
-        UIBarButtonItem *item = [UIBarButtonItem barButtonItemWithImage:[UIImage imageNamed:@"back-icon"] highLightedImage:nil target:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
-        viewController.navigationItem.leftBarButtonItem = item;
+//        // 添加默认的返回按钮
+//        UIBarButtonItem *item = [UIBarButtonItem barButtonItemWithImage:[UIImage imageNamed:@"back-icon"] highLightedImage:nil target:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
+//        viewController.navigationItem.leftBarButtonItem = item;
+//        self.navigationItem.backBarButtonItem.tintColor = MAIN_COLOR;
     }
     [super pushViewController:viewController animated:animated];
 }

@@ -7,6 +7,9 @@
 //
 
 #import "MessageViewController.h"
+#import "SettingViewController.h"
+
+#import "UIBarButtonItem+Create.h"
 
 @interface MessageViewController ()
 
@@ -14,24 +17,37 @@
 
 @implementation MessageViewController
 
+#pragma mark - Life Cycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self setupLeftItem];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark - initData
+
+#pragma mark - 设置界面
+
+- (void)setupLeftItem {
+    
+    UIBarButtonItem *leftItem = [UIBarButtonItem barButtonItemWithImage:[UIImage imageNamed:@"btg_icon_account"] highLightedImage:nil target:self action:@selector(accountButtonDidClick:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = leftItem;
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark - UITableViewDataSource
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark - UITableViewDelegate
+
+#pragma mark - Private Method
+
+- (void)accountButtonDidClick: (UIBarButtonItem *)barItem {
+    
+    SettingViewController *settingVc = [[SettingViewController alloc]init];
+    settingVc.navigationItem.backBarButtonItem.tintColor = MAIN_COLOR;
+    [self.navigationController pushViewController:settingVc animated:YES];
 }
-*/
+
+#pragma mark - 懒加载
+
 
 @end

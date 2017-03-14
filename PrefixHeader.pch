@@ -26,6 +26,9 @@
 #import "Macros_Space.h"
 #import "Macros_Number.h"
 #import "Macros_NetInterface.h"
+#import "Macros_UIAdapter.h"
 
+#import "NSString+Extend.h"
+#import "UIView+AdjustFrame.h"
 
 #endif /* PrefixHeader_pch */

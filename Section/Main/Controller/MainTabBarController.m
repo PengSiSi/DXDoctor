@@ -61,7 +61,7 @@
         
         textAttributes = @{
                            NSFontAttributeName: [UIFont boldSystemFontOfSize:18],
-                           NSForegroundColorAttributeName: [UIColor whiteColor],
+                           NSForegroundColorAttributeName: [UIColor darkGrayColor],
                            };
     } else {
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
