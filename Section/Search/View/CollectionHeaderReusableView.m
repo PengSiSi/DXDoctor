@@ -65,7 +65,7 @@
 
 // 布局子视图
 - (void)layoutSubviews {
-    
+    [super layoutSubviews];
     __weak typeof(self) weakSelf = self;
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(weakSelf).offset(20);
