@@ -15,6 +15,10 @@
 
 #import "UIBarButtonItem+Create.h"
 
+#import "MyFocusViewController.h"
+#import "MyCollectViewController.h"
+#import "MymedicalKitViewController.h"
+
 static NSString *const NewMessageCellID = @"NewMessageCellID";
 static NSString *const FocusCellID = @"FocusCellID";
 
@@ -122,15 +126,24 @@ static NSString *const FocusCellID = @"FocusCellID";
 - (void)MessageHeaderView:(MessageHeaderView *)headerView buttonDidClickedAtIndex:(NSUInteger)index {
     
     switch (index) {
-        case 0:
+        case 0: {
 //            [CombancHUD showInfoWithStatus:@"我的收藏"];
+            MyCollectViewController *collectVc = [[MyCollectViewController alloc]init];
+            [self.navigationController pushViewController:collectVc animated:YES];
             break;
-        case 1:
-            [CombancHUD showInfoWithStatus:@"我的关注"];
+        }
+        case 1: {
+//            [CombancHUD showInfoWithStatus:@"我的关注"];
+            MyFocusViewController *collectVc = [[MyFocusViewController alloc]init];
+            [self.navigationController pushViewController:collectVc animated:YES];
             break;
-        case 2:
-            [CombancHUD showInfoWithStatus:@"我的药箱"];
+        }
+        case 2: {
+//            [CombancHUD showInfoWithStatus:@"我的药箱"];
+            MymedicalKitViewController *collectVc = [[MymedicalKitViewController alloc]init];
+            [self.navigationController pushViewController:collectVc animated:YES];
             break;
+        }
         default:
             break;
     }
