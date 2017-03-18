@@ -37,8 +37,8 @@
     self.bgImgView.backgroundColor = [UIColor lightGrayColor];
     [self.contentView addSubview:self.bgImgView];
     self.titleLabel = [[UILabel alloc]init];
-//    self.titleLabel.font = FONT_16;
-    self.titleLabel.font = [UIFont boldSystemFontOfSize:16];
+    self.titleLabel.font = FONT_16;
+//    self.titleLabel.font = [UIFont boldSystemFontOfSize:16];
     self.titleLabel.textColor = [UIColor whiteColor];
     self.titleLabel.text = @"高血脂专题";
     self.titleLabel.textAlignment = NSTextAlignmentCenter;

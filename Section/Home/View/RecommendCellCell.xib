@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecommendCellCellID" rowHeight="188" id="KGk-i7-Jjw" customClass="RecommendCellCell">
+            <rect key="frame" x="0.0" y="0.0" width="354" height="190"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="354" height="189"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3lj-Lq-xL0">
+                        <rect key="frame" x="0.0" y="0.0" width="354" height="189.5"/>
+                        <color key="backgroundColor" red="0.83194944370000001" green="0.83194944370000001" blue="0.83194944370000001" alpha="1" colorSpace="calibratedRGB"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="丁香医生" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JSU-DI-hf7">
+                        <rect key="frame" x="247" y="143" width="45" height="14"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <color key="textColor" red="0.94555791884816753" green="0.94555791884816753" blue="0.94555791884816753" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="健康科普平台" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kcZ-oj-oOt">
+                        <rect key="frame" x="224.5" y="167.5" width="67.5" height="13.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_dxy" translatesAutoresizingMaskIntoConstraints="NO" id="Cyh-jL-d6X">
+                        <rect key="frame" x="298" y="133" width="48" height="48"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="48" id="8FB-Xw-au7"/>
+                            <constraint firstAttribute="width" constant="48" id="ubU-5X-T6O"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="爸妈注意啦!宝宝加辅食,这个不能缺!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x8T-cH-jqP">
+                        <rect key="frame" x="16" y="15" width="322" height="19.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="x8T-cH-jqP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="9WG-tw-ILQ"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="x8T-cH-jqP" secondAttribute="trailing" constant="8" id="DDm-rw-G4n"/>
+                    <constraint firstItem="kcZ-oj-oOt" firstAttribute="top" secondItem="JSU-DI-hf7" secondAttribute="bottom" constant="10" id="DKZ-Ke-R58"/>
+                    <constraint firstItem="x8T-cH-jqP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="7" id="EQQ-Ue-Bgz"/>
+                    <constraint firstItem="Cyh-jL-d6X" firstAttribute="leading" secondItem="JSU-DI-hf7" secondAttribute="trailing" constant="6" id="FOQ-Bm-8X9"/>
+                    <constraint firstItem="3lj-Lq-xL0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="FXC-TD-Fqr"/>
+                    <constraint firstItem="Cyh-jL-d6X" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="JQv-Ag-trY"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="Cyh-jL-d6X" secondAttribute="bottom" constant="0.5" id="UU0-tI-BnR"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="kcZ-oj-oOt" secondAttribute="bottom" constant="0.5" id="ZeS-2l-e9m"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="kcZ-oj-oOt" secondAttribute="trailing" constant="54" id="cuX-xl-Ryq"/>
+                    <constraint firstAttribute="bottom" secondItem="3lj-Lq-xL0" secondAttribute="bottom" id="kJt-1P-8AT"/>
+                    <constraint firstAttribute="trailing" secondItem="3lj-Lq-xL0" secondAttribute="trailing" id="lIE-nf-z6s"/>
+                    <constraint firstItem="3lj-Lq-xL0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="y0T-ls-Drv"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="authorLabel" destination="JSU-DI-hf7" id="HCt-hb-EJb"/>
+                <outlet property="avaterImgView" destination="Cyh-jL-d6X" id="QWO-ZO-rG9"/>
+                <outlet property="bgImgView" destination="3lj-Lq-xL0" id="jGf-FV-m6I"/>
+                <outlet property="sourceLabel" destination="kcZ-oj-oOt" id="YjT-Wt-nte"/>
+                <outlet property="titleLabel" destination="x8T-cH-jqP" id="dow-Ym-bb8"/>
+            </connections>
+            <point key="canvasLocation" x="172" y="115"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="icon_dxy" width="82" height="82"/>
+    </resources>
+</document>
