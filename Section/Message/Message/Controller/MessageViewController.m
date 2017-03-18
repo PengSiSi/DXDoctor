@@ -123,7 +123,7 @@ static NSString *const FocusCellID = @"FocusCellID";
     
     switch (index) {
         case 0:
-            [CombancHUD showInfoWithStatus:@"我的收藏"];
+//            [CombancHUD showInfoWithStatus:@"我的收藏"];
             break;
         case 1:
             [CombancHUD showInfoWithStatus:@"我的关注"];
