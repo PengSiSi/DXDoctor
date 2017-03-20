@@ -70,4 +70,8 @@
  */
 #define KNOTIFY_FIRSTSHOW @"kfirstShow"
 
+// 是否已经登录
+#define K_isLoggin @"kLoggin"
+
+
 #endif /* Macro_String_h */

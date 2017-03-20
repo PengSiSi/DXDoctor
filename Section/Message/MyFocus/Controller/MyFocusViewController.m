@@ -7,6 +7,7 @@
 //
 
 #import "MyFocusViewController.h"
+#import "NoDataView.h"
 
 @interface MyFocusViewController ()
 
@@ -18,6 +19,12 @@
     [super viewDidLoad];
     self.title = @"我的关注";
 
+    [[NoDataView shareNoDataView]showWithSuper:self.view Frame:CGRectMake(0, 0, K_SCREEN_WIDTH, K_SCREEN_HEIGHT) icon:nil iconClicked:^{
+       
+        // 一般是请求数据的回调
+    }];
+    [[NoDataView shareNoDataView]setTitleString:@"暂无关注"];
+    [[NoDataView shareNoDataView]setSubTitleString:@"暂无关注"];
 }
 
 @end

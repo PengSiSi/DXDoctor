@@ -8,16 +8,19 @@
 
 #import "MessageViewController.h"
 #import "SettingViewController.h"
-#import "MessageHeaderView.h"
-#import "NewMessageCell.h"
-#import "FocusTableViewCell.h"
-#import "CombancHUD.h"
-
-#import "UIBarButtonItem+Create.h"
-
+#import "LoginViewController.h"
 #import "MyFocusViewController.h"
 #import "MyCollectViewController.h"
 #import "MymedicalKitViewController.h"
+
+#import "MessageHeaderView.h"
+#import "NewMessageCell.h"
+#import "FocusTableViewCell.h"
+
+#import "CombancHUD.h"
+#import "WLAlertViewController.h"
+
+#import "UIBarButtonItem+Create.h"
 
 static NSString *const NewMessageCellID = @"NewMessageCellID";
 static NSString *const FocusCellID = @"FocusCellID";
@@ -139,8 +142,29 @@ static NSString *const FocusCellID = @"FocusCellID";
             break;
         }
         case 2: {
-//            [CombancHUD showInfoWithStatus:@"我的药箱"];
             MymedicalKitViewController *collectVc = [[MymedicalKitViewController alloc]init];
+            // 未登录
+            if (![K_isLoggin isEqualToString:@"0"]) {
+                
+//                WLAlertViewController *alertView = [[WLAlertViewController alloc]initWithTitle:@"提示" message:@"我的药箱需要登录" delegate:self cancelButtonTitle:@"取消" preferredStyle:WLAlertControllerStyleAlert];
+//                [alertView addOtherButtonWithTitle:@"确定" style:WLAlertActionStyleDestructive];
+//                alertView.textColor = MAIN_COLOR;
+//                [alertView show];
+                
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"我的药箱需要登录" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+                [cancelAction setValue:MAIN_COLOR forKey:@"_titleTextColor"];
+                UIAlertAction *destructAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                    // 点击确定按钮---登录
+                    LoginViewController *logginVc = [[LoginViewController alloc]init];
+                    [self.navigationController pushViewController:logginVc animated:YES];
+                }];
+                [destructAction setValue:MAIN_COLOR forKey:@"_titleTextColor"];
+                [alertController addAction:cancelAction];
+                [alertController addAction:destructAction];
+                [self presentViewController:alertController animated:YES completion:nil];
+                return;
+            }
             [self.navigationController pushViewController:collectVc animated:YES];
             break;
         }
