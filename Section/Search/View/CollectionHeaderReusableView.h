@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^SearchButtonBlock)(void);
+
 @interface CollectionHeaderReusableView : UICollectionReusableView
+
+@property (nonatomic, copy) SearchButtonBlock searchBlock;
 
 @end

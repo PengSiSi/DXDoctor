@@ -7,6 +7,7 @@
 //
 
 #import "RecommendCellCell.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface RecommendCellCell ()
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -29,6 +30,15 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)setListModel:(RecommendListModel *)listModel {
+    
+    self.titleLabel.text = listModel.title;
+    [self.bgImgView sd_setImageWithURL:[NSURL URLWithString:listModel.cover]];
+    [self.avaterImgView sd_setImageWithURL:[NSURL URLWithString:listModel.author.avatar]];
+    self.authorLabel.text = listModel.author.name;
+    self.sourceLabel.text = listModel.author.remarks;
 }
 
 @end

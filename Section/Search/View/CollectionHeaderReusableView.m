@@ -55,6 +55,7 @@
     searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [searchButton setTitle:@"搜索" forState:UIControlStateNormal];
     [searchButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    [searchButton addTarget:self action:@selector(searchDidClick:) forControlEvents:UIControlEventTouchUpInside];
     searchButton.titleLabel.font = FONT_14;
     [self.searchView addSubview:searchButton];
     // 条形码扫描按钮
@@ -94,6 +95,15 @@
         make.right.mas_equalTo(weakSelf.searchView.mas_right).offset(-20);
         make.centerY.mas_equalTo(weakSelf.searchView);
     }];
+}
+
+#pragma mark - Private Method
+
+- (void)searchDidClick: (UIButton *)button {
+    
+    if (self.searchBlock) {
+        self.searchBlock();
+    }
 }
 
 @end

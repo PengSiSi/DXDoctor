@@ -64,7 +64,8 @@
 #define KREQUESTDURATION 1.0
 #define KREQUESTONEANDHALFSECOND 1.5
 #define KOPENAPPFAILD @"请检查是否安装该应用"
-
+#define KDOWNLOADALREADY @"此文件已下载，请在已下载中查看"
+#define KDOWNLOADSUCCESS @"下载成功"
 /**
  *  是否第一次出现,0表示第一次出现，1表示出现了好多次
  */
@@ -73,5 +74,7 @@
 // 是否已经登录
 #define K_isLoggin @"kLoggin"
 
+// 历史搜索数组
+#define k_searchHistoryArray @"kSearchHistoryArray"
 
 #endif /* Macro_String_h */

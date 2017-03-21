@@ -31,4 +31,7 @@
 #import "NSString+Extend.h"
 #import "UIView+AdjustFrame.h"
 
+#import "CombancHUD.h"
+#import "HTTPTool.h"
+
 #endif /* PrefixHeader_pch */

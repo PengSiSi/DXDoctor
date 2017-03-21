@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RecommendListModel.h"
 
 @interface RecommendNoImageCell : UITableViewCell
+
+@property (nonatomic, strong) RecommendListModel *listModel;
 
 @end

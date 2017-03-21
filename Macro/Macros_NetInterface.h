@@ -33,13 +33,11 @@ NS_INLINE NSDictionary *ZCLoginParameter(NSString *loginname, NSString *password
     return NSDictionaryOfVariableBindings(loginname, password);
 }
 // ----------------------------------------------------------------------------
-#pragma mark - 2.获取角色列表
-// 2.获取角色列表 --GET
-#define GET_ROLE_LIST_URL ([NSString stringWithFormat:@"%@/getrolelist", ZC_BASE_URL])
-// 参数构造
-NS_INLINE NSDictionary *ZCGetRoleListParameter(NSString *userid, NSString *areaid, NSString *token) {
-    return NSDictionaryOfVariableBindings(userid, areaid, token);
-}
+#pragma mark - 2.首页
+
+// 2.1.获取首页列表 --GET
+#define GET_HOME_LIST_URL @"http://dxy.com/app/i/feed/index/list?&mc=8d42730951797b72d15603d380ba0afd76cdb524&vc=5.4&ac=1d6c96d5-9a53-4fe1-9537-85a33de916f1"
+
 #pragma mark - 3.用户信息修改
 // 3.用户信息修改 --POST
 // 3.1基本信息修改

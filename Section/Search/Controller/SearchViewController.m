@@ -7,6 +7,8 @@
 //
 
 #import "SearchViewController.h"
+#import "HotSearchViewController.h"
+
 #import "CollectionHeaderReusableView.h"
 #import "SearchCollectionViewCell.h"
 #import "ItemModel.h"
@@ -91,6 +93,11 @@ static NSString *const searchHeaderID = @"searchHeaderID";
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     
     CollectionHeaderReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:searchHeaderID forIndexPath:indexPath];
+    headerView.searchBlock = ^(void) {
+      // 跳转搜索页面
+        HotSearchViewController *hotSearchVc =  [[HotSearchViewController alloc]init];
+        [self.navigationController pushViewController:hotSearchVc animated:YES];
+    };
     return headerView;
 }
 
