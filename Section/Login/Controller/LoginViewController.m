@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import "LoginTableViewCell.h"
+#import "RegisterViewController.h"
 
 static NSString *const LogginCellIdentify = @"LogCellID";
 
@@ -70,7 +71,7 @@ static NSString *const LogginCellIdentify = @"LogCellID";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     LoginTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:LogginCellIdentify forIndexPath:indexPath];
-    cell.logTipImgView.image = [UIImage imageNamed:@"self.imagesArray[indexPath.row]"];
+    cell.logTipImgView.image = [UIImage imageNamed:self.imagesArray[indexPath.row]];
     cell.logginTextLabel.text = self.titlesArray[indexPath.row];
     return cell;
 }
@@ -115,6 +116,7 @@ static NSString *const LogginCellIdentify = @"LogCellID";
     [headerView addSubview:buttonContainView];
     for (NSInteger i = 0; i < buttonTitleArray.count; i++) {
         UIButton *button = [UIButton buttonWithType: UIButtonTypeCustom];
+        button.tag = i;
         button.frame = CGRectMake(20, (i * 30) + 10 + (i * 10), K_SCREEN_WIDTH - 40, 30);
         button.layer.borderColor = [UIColor lightGrayColor].CGColor;
         button.layer.borderWidth = 0.5;
@@ -136,6 +138,12 @@ static NSString *const LogginCellIdentify = @"LogCellID";
 
 - (void)registerVuttonDidClick: (UIButton *)button {
     
+    // 快速注册
+    if (button.tag == 1) {
+        
+        RegisterViewController *registerVc = [[RegisterViewController alloc]init];
+        [self.navigationController pushViewController:registerVc animated:YES];
+    }
 }
 
 @end

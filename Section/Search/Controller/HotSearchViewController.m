@@ -80,6 +80,7 @@ static NSString *HotSearchCellIdentify = @"HotSearchCellID";
 //    self.tableView.estimatedRowHeight = 100;
     // 注册cell
     [self.tableView registerClass:[SearchTagsCell class] forCellReuseIdentifier:HotSearchCellIdentify];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     [self.view addSubview:self.tableView];
 //    self.tableView.tableHeaderView = [self setHeaderView];
 //    self.tableView.tableFooterView = [self setHeaderView];
@@ -101,15 +102,14 @@ static NSString *HotSearchCellIdentify = @"HotSearchCellID";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 1;
+    return self.searchHistoryMutableArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    SearchTagsCell *cell = [tableView dequeueReusableCellWithIdentifier:HotSearchCellIdentify forIndexPath:indexPath];
-    if (indexPath.section == 0) {
-        cell.dataArray = [self.searchHistoryMutableArray copy];
-    }
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    cell.textLabel.text = self.searchHistoryMutableArray[indexPath.row];
+    cell.textLabel.font = FONT_14;
     return cell;
 }
 
@@ -127,14 +127,15 @@ static NSString *HotSearchCellIdentify = @"HotSearchCellID";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    if (indexPath.section == 0) {
-        
-        return [tableView fd_heightForCellWithIdentifier:HotSearchCellIdentify configuration:^(SearchTagsCell *cell) {
-            cell.dataArray = self.searchHistoryMutableArray;
-        }];
-    } else {
-        return 0.001f;
-    }
+//    if (indexPath.section == 0) {
+//        
+//        return [tableView fd_heightForCellWithIdentifier:HotSearchCellIdentify configuration:^(SearchTagsCell *cell) {
+//            cell.dataArray = self.searchHistoryMutableArray;
+//        }];
+//    } else {
+//        return 0.001f;
+//    }
+    return 30;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {

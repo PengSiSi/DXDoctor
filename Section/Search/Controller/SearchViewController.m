@@ -12,13 +12,15 @@
 #import "CollectionHeaderReusableView.h"
 #import "SearchCollectionViewCell.h"
 #import "ItemModel.h"
+#import <PYSearchViewController.h>
+#import "SearchDetailViewController.h"
 
 #define itemWidth (K_SCREEN_WIDTH / 3)
 
 static NSString *const searchCellID = @"searchCellID";
 static NSString *const searchHeaderID = @"searchHeaderID";
 
-@interface SearchViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface SearchViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, PYSearchViewControllerDelegate>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSArray *dataArray;
@@ -97,8 +99,47 @@ static NSString *const searchHeaderID = @"searchHeaderID";
       // 跳转搜索页面
         HotSearchViewController *hotSearchVc =  [[HotSearchViewController alloc]init];
         [self.navigationController pushViewController:hotSearchVc animated:YES];
+//        // 1. 创建热门搜索
+//        NSArray *hotSeaches = @[@"Java", @"Python", @"Objective-C", @"Swift", @"C", @"C++", @"PHP", @"C#", @"Perl", @"Go", @"JavaScript", @"R", @"Ruby", @"MATLAB"];
+//        // 2. 创建控制器
+//        PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:hotSeaches searchBarPlaceholder:NSLocalizedString(@"请输入", @"搜索编程语言") didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
+//            // 开始搜索执行以下代码
+//            // 如：跳转到指定控制器
+//            [searchViewController.navigationController pushViewController:[[SearchDetailViewController alloc] init] animated:YES];
+//        }];
+//        // 3. 设置风格
+//        if (indexPath.section == 0) { // 选择热门搜索
+//            searchViewController.hotSearchStyle = PYHotSearchStyleDefault; // 热门搜索风格为默认
+//            searchViewController.searchHistoryStyle = (NSInteger)indexPath.row; // 搜索历史风格根据选择
+//        } else { // 选择搜索历史
+//            searchViewController.hotSearchStyle = (NSInteger)indexPath.row; // 热门搜索风格根据选择
+//            searchViewController.searchHistoryStyle = PYHotSearchStyleDefault; // 搜索历史风格为default
+//        }
+//        // 4. 设置代理
+//        searchViewController.delegate = self;
+//        // 5. 跳转到搜索控制器
+//        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:searchViewController];
+//        [self presentViewController:nav animated:YES completion:nil];
     };
     return headerView;
+}
+
+#pragma mark - PYSearchViewControllerDelegate
+- (void)searchViewController:(PYSearchViewController *)searchViewController searchTextDidChange:(UISearchBar *)seachBar searchText:(NSString *)searchText
+{
+    if (searchText.length) { // 与搜索条件再搜索
+        // 根据条件发送查询（这里模拟搜索）
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 搜索完毕
+            // 显示建议搜索结果
+            NSMutableArray *searchSuggestionsM = [NSMutableArray array];
+            for (int i = 0; i < arc4random_uniform(5) + 10; i++) {
+                NSString *searchSuggestion = [NSString stringWithFormat:@"搜索建议 %d", i];
+                [searchSuggestionsM addObject:searchSuggestion];
+            }
+            // 返回
+            searchViewController.searchSuggestions = searchSuggestionsM;
+        });
+    }
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
