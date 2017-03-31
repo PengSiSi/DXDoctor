@@ -45,7 +45,14 @@
     self.verifyCodeButton.titleLabel.font = FONT_14;
     [self.verifyCodeButton addTarget:self action:@selector(countDownButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.verifyCodeButton];
-    [self layOutSubViews];
+//    [self layOutSubViews];
+}
+
+- (void)layoutSubviews {
+    
+    [super layoutSubviews];
+    self.verifyCodeTextField.frame = CGRectMake(0, 0, K_SCREEN_WIDTH * 2/3, self.height);
+    self.verifyCodeButton.frame = CGRectMake(K_SCREEN_WIDTH * 2 / 3, 0, K_SCREEN_WIDTH * 1/3 - 20, self.height);
 }
 
 - (void)layOutSubViews {
