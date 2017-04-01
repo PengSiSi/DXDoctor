@@ -14,6 +14,7 @@
 #import "ItemModel.h"
 #import <PYSearchViewController.h>
 #import "SearchDetailViewController.h"
+#import "HotSearchTagsVc.h"
 
 #define itemWidth (K_SCREEN_WIDTH / 3)
 
@@ -97,7 +98,8 @@ static NSString *const searchHeaderID = @"searchHeaderID";
     CollectionHeaderReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:searchHeaderID forIndexPath:indexPath];
     headerView.searchBlock = ^(void) {
       // 跳转搜索页面
-        HotSearchViewController *hotSearchVc =  [[HotSearchViewController alloc]init];
+        //HotSearchViewController *hotSearchVc =  [[HotSearchViewController alloc]init];
+        HotSearchTagsVc *hotSearchVc = [[HotSearchTagsVc alloc]init];
         [self.navigationController pushViewController:hotSearchVc animated:YES];
 //        // 1. 创建热门搜索
 //        NSArray *hotSeaches = @[@"Java", @"Python", @"Objective-C", @"Swift", @"C", @"C++", @"PHP", @"C#", @"Perl", @"Go", @"JavaScript", @"R", @"Ruby", @"MATLAB"];
